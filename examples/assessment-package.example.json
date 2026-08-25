@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "package_id": "AP-DEMO-001",
+    "title": "用户价值形成性检测",
+    "version": "1.0.0",
+    "status": "teacher_review",
+    "language": "zh-CN"
+  },
+  "brief": {
+    "purpose": "formative",
+    "stakes": "medium",
+    "audience": "0-1年产品经理",
+    "duration_minutes": 10,
+    "total_points": 4,
+    "export_target": "generic-json"
+  },
+  "sources": [
+    {"id": "S1", "title": "已审核课程讲稿", "type": "lesson-script", "authoritative": true, "usage_scope": "internal"}
+  ],
+  "knowledge_points": [
+    {"id": "K1", "name": "用户价值公式", "type": "procedure", "importance": "core", "source_ids": ["S1"], "objective_ids": ["O1"]}
+  ],
+  "blueprint": {
+    "targets": [
+      {"knowledge_id": "K1", "bloom_level": "apply", "difficulty": "medium", "item_type": "single_choice", "count": 2, "points": 4}
+    ]
+  },
+  "items": [
+    {
+      "id": "I1",
+      "version": "1.0.0",
+      "type": "single_choice",
+      "knowledge_ids": ["K1"],
+      "objective_ids": ["O1"],
+      "bloom_level": "apply",
+      "difficulty_estimated": "medium",
+      "difficulty_calibrated": null,
+      "stem": "新工具体验略好，但迁移历史数据需要两天。最需要优先评估什么？",
+      "options": [
+        {"id": "A", "text": "功能数量"},
+        {"id": "B", "text": "替换成本是否抵消体验增量"},
+        {"id": "C", "text": "界面颜色"},
+        {"id": "D", "text": "研发人数"}
+      ],
+      "answer": "B",
+      "explanation": "用户价值要比较新旧体验，并扣除迁移、学习和习惯等替换成本。",
+      "points": 2,
+      "source_ids": ["S1"],
+      "review_status": "teacher_review"
+    },
+    {
+      "id": "I2",
+      "version": "1.0.0",
+      "type": "single_choice",
+      "knowledge_ids": ["K1"],
+      "objective_ids": ["O1"],
+      "bloom_level": "apply",
+      "difficulty_estimated": "medium",
+      "difficulty_calibrated": null,
+      "stem": "用户已用表格稳定完成任务。评估新产品时，表格属于什么？",
+      "options": [
+        {"id": "A", "text": "旧体验/替代方案"},
+        {"id": "B", "text": "新体验"},
+        {"id": "C", "text": "研发成本"},
+        {"id": "D", "text": "发布渠道"}
+      ],
+      "answer": "A",
+      "explanation": "旧体验包括竞品，也包括表格、纸笔等用户当前使用的土办法。",
+      "points": 2,
+      "source_ids": ["S1"],
+      "review_status": "teacher_review"
+    }
+  ],
+  "diagnostic_rules": [
+    {"knowledge_id": "K1", "item_ids": ["I1", "I2"], "minimum_evidence_count": 2, "mastery_threshold": 0.8}
+  ],
+  "quality": {
+    "hard_failures": [],
+    "review_status": "pending-human-review"
+  },
+  "governance": {
+    "generated_by": "ai-quiz-generator v2",
+    "human_owner": "teacher-demo",
+    "reviewers": ["item-reviewer-demo"],
+    "created_at": "2026-08-26T00:00:00Z"
+  }
+}
