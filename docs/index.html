@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="知测云：把学习材料转化为可追溯、可审核、可诊断的知识效果检测。">
+  <meta name="theme-color" content="#f6f7f2">
+  <title>知测云｜AI 知识效果检测</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="知测云首页">
+      <span class="brand-mark">知</span>
+      <span><strong>知测云</strong><small>ZHI CE LAB</small></span>
+    </a>
+    <nav class="topnav" aria-label="主导航">
+      <button class="nav-link active" data-view="studio">测评工作台</button>
+      <button class="nav-link" data-view="review">题目审核 <span id="reviewCount" class="count">0</span></button>
+      <button class="nav-link" data-view="exam">学员试答</button>
+      <button class="nav-link" data-view="report">诊断报告</button>
+    </nav>
+    <div class="top-actions">
+      <span class="online-dot"><i></i> Beta 在线</span>
+      <button class="ghost-button" id="exportButton">导出 JSON</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="view active" id="studioView" data-view-panel="studio">
+      <div class="hero-grid page-shell">
+        <div class="hero-copy">
+          <span class="eyebrow">AI ASSESSMENT OPERATING SYSTEM</span>
+          <h1>不是“出几道题”，<br><em>是建立学习证据链。</em></h1>
+          <p>从课程材料到知识模型、考试蓝图、候选题审核，再到作答诊断与补练建议。每个结论都能追溯，每次发布都有门禁。</p>
+          <div class="hero-pills">
+            <span>来源可追溯</span><span>蓝图先行</span><span>人工审核</span><span>证据式诊断</span>
+          </div>
+        </div>
+        <aside class="evidence-card" aria-label="产品能力概览">
+          <div class="card-kicker">EVIDENCE, NOT LABELS</div>
+          <div class="evidence-ring"><strong>2×</strong><span>核心目标<br>独立证据</span></div>
+          <blockquote>“不把一次答错解释为不会，<br>只描述当前证据支持什么。”</blockquote>
+          <div class="mini-metrics"><span><b>9</b>阶段链路</span><span><b>6</b>质量检查</span><span><b>0</b>虚构难度</span></div>
+        </aside>
+      </div>
+
+      <div class="page-shell workspace-grid">
+        <section class="panel source-panel">
+          <div class="panel-heading">
+            <div><span class="step-label">01 · ASSESSMENT BRIEF</span><h2>定义检测任务</h2></div>
+            <button class="text-button" id="loadSampleButton">恢复示例材料 ↗</button>
+          </div>
+          <div class="form-grid">
+            <label class="field wide"><span>测评名称</span><input id="titleInput" value="AI 产品经理核心能力形成性检测" maxlength="60"></label>
+            <label class="field"><span>测评目的</span><select id="purposeInput"><option value="formative">形成性检测</option><option value="diagnostic">诊断性检测</option><option value="practice">自主练习</option><option value="summative">总结性检测</option></select></label>
+            <label class="field"><span>风险等级</span><select id="stakesInput"><option value="low">Low · 自测练习</option><option value="medium" selected>Medium · 章节测</option><option value="high">High · 高风险</option></select></label>
+            <label class="field"><span>目标学员</span><input id="audienceInput" value="0—2 年 AI 产品经理" maxlength="50"></label>
+            <label class="field"><span>预计时长</span><select id="durationInput"><option value="8">8 分钟</option><option value="10" selected>10 分钟</option><option value="15">15 分钟</option></select></label>
+            <label class="field wide"><span>来源名称</span><input id="sourceNameInput" value="AI 产品经理课程讲稿（演示）" maxlength="80"></label>
+            <label class="field wide"><span>粘贴学习材料 <i id="sourceMeta">0 字</i></span><textarea id="sourceInput" rows="12" placeholder="建议使用 # 标题划分主题，并提供可核验的完整陈述。"></textarea></label>
+          </div>
+          <div id="sourceCheck" class="source-check" role="status"></div>
+          <div class="panel-footer">
+            <span><i class="shield-icon">✓</i> 材料仅在当前浏览器处理，演示版不上传服务器</span>
+            <button class="primary-button" id="generateButton"><span>生成检测方案</span><b>→</b></button>
+          </div>
+        </section>
+
+        <aside class="panel pipeline-panel">
+          <div class="panel-heading"><div><span class="step-label">LIVE PIPELINE</span><h2>从材料到诊断</h2></div><span class="status-chip">MVP</span></div>
+          <ol class="pipeline" id="pipelineList">
+            <li class="active"><b>01</b><span><strong>Assessment Brief</strong><small>目的、风险、学员与来源</small></span><i>现在</i></li>
+            <li><b>02</b><span><strong>知识模型</strong><small>章节、知识点与可观察证据</small></span><i></i></li>
+            <li><b>03</b><span><strong>考试蓝图</strong><small>题型、层级、难度与题量</small></span><i></i></li>
+            <li><b>04</b><span><strong>候选题池</strong><small>来源绑定与质量评分</small></span><i></i></li>
+            <li><b>05</b><span><strong>人工审核</strong><small>教师确认后才可发布</small></span><i></i></li>
+            <li><b>06</b><span><strong>证据诊断</strong><small>作答、补练与迁移再测</small></span><i></i></li>
+          </ol>
+          <div class="guardrail"><span>!</span><p><strong>风险边界</strong>高风险测评仅提供辅助设计，不替代专业测量人员和人工决策。</p></div>
+        </aside>
+      </div>
+
+      <section class="page-shell principles">
+        <div><span>01</span><h3>先蓝图，后出题</h3><p>不套固定难度比例，先回答“要收集什么证据”。</p></div>
+        <div><span>02</span><h3>每题都有出处</h3><p>题干、答案、解析、知识点和来源保持同一证据链。</p></div>
+        <div><span>03</span><h3>诊断保持克制</h3><p>输出 demonstrated / developing / insufficient evidence。</p></div>
+      </section>
+    </section>
+
+    <section class="view" id="reviewView" data-view-panel="review">
+      <div class="page-shell subpage-head">
+        <div><span class="eyebrow">HUMAN-IN-THE-LOOP</span><h1>题目审核台</h1><p>规则检查通过不等于内容有效。确认答案、来源和表达后，再进入学员端。</p></div>
+        <div class="head-actions"><span id="reviewStatus" class="status-chip warn">待生成</span><button class="primary-button compact" id="approveAllButton">全部审核通过</button></div>
+      </div>
+      <div class="page-shell review-layout">
+        <aside class="panel review-summary" id="reviewSummary"><div class="empty-state">先在测评工作台生成检测方案</div></aside>
+        <section class="question-list" id="questionList"><div class="panel empty-state">暂无候选题</div></section>
+      </div>
+    </section>
+
+    <section class="view" id="examView" data-view-panel="exam">
+      <div class="exam-shell" id="examShell">
+        <div class="panel empty-state">生成并审核检测方案后，可在这里进行学员试答。</div>
+      </div>
+    </section>
+
+    <section class="view" id="reportView" data-view-panel="report">
+      <div class="page-shell subpage-head"><div><span class="eyebrow">LEARNING EVIDENCE</span><h1>学习诊断报告</h1><p>只呈现本次作答证据，不给学习者贴永久标签。</p></div><button class="ghost-button" id="retryButton">重新试答</button></div>
+      <div class="page-shell" id="reportContent"><div class="panel empty-state">完成一次学员试答后，这里会生成知识点证据报告。</div></div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <footer><span>知测云 · From Skill to Product</span><span>Built on learning-assessment-skill · Beta</span></footer>
+  <script src="core.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

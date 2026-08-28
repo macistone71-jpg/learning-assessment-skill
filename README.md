@@ -2,6 +2,17 @@
 
 > 从“笔记生成几道题”升级为“知识模型—考试蓝图—候选题池—质量门禁—人工审核—作答诊断—补练再测”的完整测评系统。
 
+## 在线产品：知测云
+
+该 Skill 已落地为可交互的响应式 Web MVP **知测云（Zhi Ce Lab）**：
+
+- 在线体验：<https://macistone71-jpg.github.io/learning-assessment-skill/>
+- 产品文档：[`product-docs/`](product-docs/)
+- Web 源码：[`docs/`](docs/)
+- 自动测试：`node tests/test_core.js && python3 scripts/validate_assessment_package.py tests/generated-assessment-package.json`
+
+产品实现“材料 → 知识模型 → 考试蓝图 → 候选题 → 人工审核 → 学员试答 → 证据诊断 → JSON 导出”，medium/high 风险测评未经人工审核不能进入学员端。
+
 ## 项目定位
 
 该项目源自 AI 教育业务场景，服务教师、教研员、题库运营、教学管理者和学生。它关注的不是出题速度本身，而是：
