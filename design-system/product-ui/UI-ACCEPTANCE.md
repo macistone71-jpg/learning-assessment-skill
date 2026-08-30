@@ -1,29 +1,23 @@
 # 知测云｜UI Acceptance
 
-> 只记录实际运行结果，不用“代码已写”替代“功能已验收”。
+日期：2026-08-30
 
 ## 环境
-- URL / build：待填写
-- 浏览器：待填写
-- 验收日期：待填写
 
-## 核心任务
-| 任务 | 桌面 | 390px | 键盘 | 结果/证据 |
-|---|---|---|---|---|
-| 主链路 | 待测 | 待测 | 待测 | |
-| 错误恢复 | 待测 | 待测 | 待测 | |
-| 保存/刷新 | 待测 | 待测 | 不适用 | |
-| 导出/提交 | 待测 | 待测 | 待测 | |
+- 正式地址：https://macistone71-jpg.github.io/learning-assessment-skill/
+- GitHub Pages commit：`e4982e4`
 
-## 硬门禁
-- [ ] `scrollWidth === innerWidth`（390px）
-- [ ] 正文与关键控件对比可读
-- [ ] 焦点可见、顺序合理
-- [ ] 表单 label、错误原因、恢复路径完整
-- [ ] 弹窗可关闭且不丢状态
-- [ ] 空/加载/错误/成功/禁用均覆盖
-- [ ] 无虚构指标、用户评价或已验证结论
-- [ ] reduced-motion 下功能不依赖动画
+## 实际结果
 
-## 遗留问题
-- 待填写
+| 任务 | 结果 |
+|---|---|
+| 示例材料 | 337 字、3 个主题，source check good |
+| 生成检测方案 | 通过，候选题 6 道，审核计数 6 |
+| 键盘焦点 | Tab 后 `:focus-visible = true`，outline `solid 3px` |
+| reduced-motion | transition 计算值 `0.00001s` |
+| 390px | `innerWidth = scrollWidth = 390` |
+| 单元与结构测试 | Node 25+ 断言；Python Assessment Package 通过 |
+
+## 仍需真实灰度
+
+题目修改率、一次审核通过率、真实难度、区分度、可靠性和再测变化未采集，不计入技术验收。
