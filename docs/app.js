@@ -24,7 +24,7 @@
   function save() {
     try {
       localStorage.setItem("zhice-demo-state", JSON.stringify({
-        package: state.package, answers: state.answers, report: state.report,
+        package: state.package, answers: state.answers, report: state.report, questionIndex: state.questionIndex,
         form: { source: els.source.value, title: els.title.value, purpose: els.purpose.value, stakes: els.stakes.value, audience: els.audience.value, duration: els.duration.value, sourceName: els.sourceName.value }
       }));
     } catch (_) {}
@@ -38,6 +38,7 @@
       state.package = saved.package || null;
       state.answers = saved.answers || {};
       state.report = saved.report || null;
+      state.questionIndex = Number.isInteger(saved.questionIndex) ? saved.questionIndex : 0;
       if (saved.form) Object.entries(saved.form).forEach(([key, value]) => {
         if (key === "source") els.source.value = value;
         else if (els[key]) els[key].value = value;
@@ -76,6 +77,13 @@
     });
   }
 
+  function syncPipeline() {
+    if (state.report) return setPipeline(6);
+    if (!state.package) return setPipeline(0);
+    const approved = state.package.items.every((item) => item.review_status === "approved") || state.package.brief.stakes === "low";
+    setPipeline(approved ? 5 : 4);
+  }
+
   function generate() {
     const button = $("#generateButton");
     button.disabled = true;
@@ -88,7 +96,7 @@
       state.answers = {};
       state.report = null;
       state.questionIndex = 0;
-      setPipeline(4);
+      syncPipeline();
       save();
       renderReview();
       renderExam();
@@ -140,7 +148,7 @@
   function approveAll() {
     if (!state.package) return toast("请先生成检测方案");
     state.package = Core.approvePackage(state.package, "产品演示审核员");
-    setPipeline(5);
+    syncPipeline();
     save();
     renderReview();
     renderExam();
@@ -175,7 +183,7 @@
     }));
     $("#nextQuestionButton").addEventListener("click", () => {
       if (!state.answers[item.id]) return;
-      if (state.questionIndex < data.items.length - 1) { state.questionIndex += 1; renderQuestion(); }
+      if (state.questionIndex < data.items.length - 1) { state.questionIndex += 1; save(); renderQuestion(); }
       else finishExam();
     });
   }
@@ -183,7 +191,7 @@
   function finishExam() {
     state.report = Core.diagnose(state.package, state.answers);
     save();
-    setPipeline(6);
+    syncPipeline();
     renderReport();
     toast("诊断报告已生成：结论仅基于本次作答证据");
     showView("report");
@@ -198,7 +206,7 @@
 
   function retry() {
     if (!state.package) return showView("studio");
-    state.answers = {}; state.report = null; state.questionIndex = 0; save(); renderExam(); showView("exam");
+    state.answers = {}; state.report = null; state.questionIndex = 0; syncPipeline(); save(); renderExam(); showView("exam");
   }
 
   function exportJson() {
@@ -217,12 +225,13 @@
 
   restore();
   updateSourceCheck();
+  syncPipeline();
   if (state.package) { renderReview(); renderExam(); els.reviewCount.textContent = state.package.items.filter((item) => item.review_status !== "approved").length; }
   if (state.report) renderReport();
   $$(".nav-link").forEach((link) => link.addEventListener("click", () => showView(link.dataset.view)));
   document.addEventListener("click", (event) => { const target = event.target.closest("[data-go]"); if (target) showView(target.dataset.go); });
   els.source.addEventListener("input", () => { updateSourceCheck(); save(); });
-  $("#loadSampleButton").addEventListener("click", () => { els.source.value = Core.DEFAULT_SOURCE; updateSourceCheck(); toast("已恢复可直接体验的示例材料"); });
+  $("#loadSampleButton").addEventListener("click", () => { els.source.value = Core.DEFAULT_SOURCE; updateSourceCheck(); save(); toast("已恢复可直接体验的示例材料"); });
   $("#generateButton").addEventListener("click", generate);
   $("#approveAllButton").addEventListener("click", approveAll);
   $("#exportButton").addEventListener("click", exportJson);
